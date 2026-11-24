@@ -4,7 +4,8 @@ WORKDIR /app
 RUN groupadd --system scapp && useradd --system --gid scapp --home-dir /app scapp \
     && mkdir -p /data && chown scapp:scapp /data
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt "gunicorn>=23,<24"
+RUN pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "urllib3>=2.8.0" "msgpack>=1.2.3" && \
+    pip install --no-cache-dir -r requirements.txt "gunicorn>=23,<24"
 COPY src ./src
 COPY docker_entry.py .
 USER scapp
